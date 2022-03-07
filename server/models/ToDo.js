@@ -7,7 +7,7 @@ const toDoSchema = new Schema({
     type: String,
     required: true,
   },
-  Text: {
+  text: {
     type: String,
     required: true,
   },
@@ -20,11 +20,14 @@ const toDoSchema = new Schema({
   date: {
     type: Date,
   }
+  // optional alternative to two schemas with just boolean being updated
+    // not used as this would nt give a created_at for the done schema
   // completed : {
   //   type: Boolean,
   //   required: true
   // }
 });
+
 
 
 // maybe alternative solution with an array of objects for todo, completed etc?

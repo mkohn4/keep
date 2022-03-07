@@ -6,7 +6,7 @@ const doneSchema = new Schema({
       type: String,
       required: true,
     },
-    Text: {
+    text: {
       type: String,
       required: true,
     },
