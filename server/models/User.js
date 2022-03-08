@@ -25,8 +25,7 @@ const userSchema = new Schema({
       required: true,
     },
     // set toDo to be an array of data that adheres to the bookSchema
-    toDo: [toDoSchema],
-    done: [doneSchema]
+    toDo: [toDoSchema]
   },
   // set this to use virtual below
   {
