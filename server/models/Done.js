@@ -1,20 +1,15 @@
 const { Schema } = require('mongoose');
 
 const doneSchema = new Schema({
-    // saved book id from GoogleBooks
-    doneId: {
-      type: String,
-      required: true,
-    },
     text: {
       type: String,
       required: true,
     },
-    created_at: {
-      type: Date,
-      required: true,
-      default: Date.now
-    },
+    createdAt: {
+        type: Date,
+        default: Date.now,
+        get: (timestamp) => dateFormat(timestamp),
+    }
     // completed : {
     //   type: Boolean,
     //   required: true
