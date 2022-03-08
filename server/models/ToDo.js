@@ -6,16 +6,13 @@ const toDoSchema = new Schema({
     type: String,
     required: true,
   },
-  createdAt: {
-    type: Date,
-    default: Date.now,
-    get: (timestamp) => dateFormat(timestamp),
-  },
-  done : {
+  done: {
     type: Boolean,
-    required: true
+    default: false
   }
-});
+},
+{ timestamps: true }
+);
 
 
 
