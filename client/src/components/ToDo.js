@@ -8,27 +8,27 @@ const ToDo = ({toDos}) => {
 
     //set removeToDo as the mutation REMOVE_TODO
     const [removeToDo] = useMutation(REMOVE_TODO);
-
+    //if no Todos returned, return this h3
     if (!toDos.length) {
         return <h3>No To-Dos Yet!</h3>
     }
 
 
-// create function that accepts the book's mongo _id value as param and deletes the book from the database
+// create function that accepts the book's mongo _id value as param and deletes the todo from the database
   const handleDeleteToDo = async (toDoId) => {
+    //get user token from auth function
     const token = Auth.loggedIn() ? Auth.getToken() : null;
-
+    //if no token do return out of function
     if (!token) {
       return false;
     }
-
+    //try to async remove the todo by passing in the toDoId param to match _id in db
     try {
       await removeToDo({
         variables: { _id: toDoId }
       });
-      // upon success, remove book's id from localStorage
-      //removeBookId(bookId);
     } catch (err) {
+        //else console log error if unsuccessful
       console.error(err);
     }
   };
