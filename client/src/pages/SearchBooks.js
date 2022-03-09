@@ -2,10 +2,12 @@ import React, { useState } from 'react';
 import { Jumbotron, Container, Col, Form, Button, Card, CardColumns } from 'react-bootstrap';
 
 import Auth from '../utils/auth';
-import { useMutation } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
 import { SAVE_BOOK } from '../utils/mutations';
 import { searchGoogleBooks } from '../utils/API';
 import { saveBookIds, getSavedBookIds } from '../utils/localStorage';
+import { QUERY_ME } from '../utils/queries';
+import ToDo from '../components/ToDo';
 
 const SearchBooks = () => {
   const [saveBook] = useMutation(SAVE_BOOK);
@@ -70,6 +72,9 @@ const SearchBooks = () => {
     }
   };
 
+  const {loading, data} = useQuery(QUERY_ME);
+  const toDos = data?.me.toDo || [];
+
   return (
     <>
       <Jumbotron fluid className='text-light bg-dark'>
@@ -98,6 +103,18 @@ const SearchBooks = () => {
       </Jumbotron>
 
       <Container>
+
+      {loading ? (
+        <div>Loading...</div>
+      ) : (
+        <ToDo
+        toDos={toDos}></ToDo>
+      )}
+
+
+
+
+
         <h2>
           {searchedBooks.length
             ? `Viewing ${searchedBooks.length} results:`
