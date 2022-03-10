@@ -4,6 +4,7 @@ import { Form, Button, Alert } from 'react-bootstrap';
 import { useMutation } from '@apollo/client';
 import { LOGIN_USER } from '../utils/mutations';
 import Auth from '../utils/auth';
+import './LoginForm.css'
 
 const LoginForm = () => {
   const [userFormData, setUserFormData] = useState({ email: '', password: '' });
@@ -42,12 +43,13 @@ const LoginForm = () => {
   };
 
   return (
-    <>
-      <Form noValidate validated={validated} onSubmit={handleFormSubmit}>
+    <section className="login_form">
+      <Form  noValidate validated={validated} onSubmit={handleFormSubmit}>
         <Alert dismissible onClose={() => setShowAlert(false)} show={showAlert} variant='danger'>
           Something went wrong with your login credentials!
         </Alert>
-        <Form.Group>
+        <Form.Group className='login_email'>
+          <h1 className='login'>Login</h1>
           <Form.Label htmlFor='email'>Email</Form.Label>
           <Form.Control
             type='text'
@@ -60,7 +62,7 @@ const LoginForm = () => {
           <Form.Control.Feedback type='invalid'>Email is required!</Form.Control.Feedback>
         </Form.Group>
 
-        <Form.Group>
+        <Form.Group className='login_password'>
           <Form.Label htmlFor='password'>Password</Form.Label>
           <Form.Control
             type='password'
@@ -72,14 +74,16 @@ const LoginForm = () => {
           />
           <Form.Control.Feedback type='invalid'>Password is required!</Form.Control.Feedback>
         </Form.Group>
-        <Button
+        <Button className='login_button'
           disabled={!(userFormData.email && userFormData.password)}
           type='submit'
-          variant='success'>
+          variant='success'
+          >
           Submit
         </Button>
       </Form>
-    </>
+      </section>
+    
   );
 };
 
