@@ -37,13 +37,15 @@ const ToDo = ({toDos}) => {
 
     return (
         <div>
-            {toDos.map((toDo) => (
+            
                 <ul className='list-group'>
+                {toDos.map((toDo) => (
                     <li className='list-group-item d-flex justify-content-between align-items-center' key={toDo._id}>{toDo.text} from {toDo.createdAt}
                         <button onClick={() => handleDeleteToDo(toDo._id)} className='badge'>🗑</button>
                     </li>
+                     ))}
                 </ul>
-            ))}
+           
         </div>
     )
 }
