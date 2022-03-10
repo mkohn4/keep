@@ -96,7 +96,7 @@ const SearchBooks = () => {
 
     //if user not logged in, return out
     if (!token) {
-      return false;
+      return <h3>Please Login to Add To-Dos</h3>;
     }
 
     try {
