@@ -3,7 +3,7 @@ const {
 } = require('apollo-server-express');
 // import user model
 const {
-  User
+  User, ToDo
 } = require('../models');
 // import sign token function from auth
 const {
@@ -19,7 +19,7 @@ const resolvers = {
         const userData = await User.findOne({
           _id: context.user._id
         })
-        //   .populate('savedbooks');
+        .populate('toDo');
 
         return userData
       }
@@ -62,21 +62,27 @@ const resolvers = {
         user
       };
     },
-    // TODO: add a new todo
+
+    // Add a new todo
     addToDo: async (parent, args, context) => {
       if (context.user) {
-        const updateUser = await User.findOneAndUpdate({
+        const newToDo = await ToDo.create(args)
+        const updateToDo = await User.findOneAndUpdate({
           _id: context.user._id
-        }, {
+        }, 
+        {
           $push: {
-            toDo: args
+            toDo:  newToDo._id 
           }
-        }, {
+        }, 
+        {
           new: true,
           runValidators: true
-        });
+        })
+        .select('-__v -password')
+        .populate('toDo');
 
-        return updateUser;
+        return updateToDo;
       }
 
       throw new AuthenticationError('You need to be logged in');
@@ -85,34 +91,63 @@ const resolvers = {
 
     removeToDo: async (parent, { _id }, context) => {
       if (context.user) {
-        const updateUser = await User.findOneAndUpdate(
+        const updateToDo = await User.findOneAndUpdate(
           { _id: context.user._id },
-          { $pull: { toDo: { _id: _id } } },
+          { 
+          $pull: { toDo: _id }
+          },
+          { new: true }
+        )
+        .select('-__v -password')
+        .populate('toDo');
+        return updateToDo;
+      }
+
+      throw new AuthenticationError('You need to be logged in');
+    },
+
+    updateToDoDone: async (parent, { _id }, context) => {
+      if (context.user) {
+        const updateToDo = await ToDo.findOneAndUpdate(
+          { _id: _id },
+          { done: true },
           { new: true }
         );
 
-        return updateUser;
+        return updateToDo;
+      }
+
+      throw new AuthenticationError('You need to be logged in');
+    },
+
+    updateToDoNotDone: async (parent, { _id }, context) => {
+      if (context.user) {
+        const updateToDo = await ToDo.findOneAndUpdate(
+          { _id: _id },
+          { done: false },
+          { new: true }
+        );
+
+        return updateToDo;
+      }
+
+      throw new AuthenticationError('You need to be logged in');
+    },
+
+    updateToDoText: async (parent, { _id }, context) => {
+      if (context.user) {
+        const testText = "test text"
+        const updateToDo = await ToDo.findOneAndUpdate(
+          { _id: _id },
+          { text: testText },
+          { new: true }
+        );
+
+        return updateToDo
       }
 
       throw new AuthenticationError('You need to be logged in');
     }
-
-    // updateToDo: async (parent, { _id }, context) => {
-    //   if (context.user) {
-    //     const updateUser = await User.findOneAndUpdate(
-    //       { _id: context.user._id },
-    //       { $set: { toDo: { _id: _id } } },
-    //       { new: true }
-    //     );
-
-    //     return updateUser;
-    //   }
-
-    //   throw new AuthenticationError('You need to be logged in');
-    // }
-
-    // TODO: update todo text
-    // TODO: update to opposite boolean
   }
 };
 

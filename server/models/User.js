@@ -1,6 +1,7 @@
 const {
   Schema,
-  model
+  model,
+  Types
 } = require('mongoose');
 const bcrypt = require('bcrypt');
 
@@ -25,7 +26,10 @@ const userSchema = new Schema({
       required: true,
     },
     // set toDo to be an array of data that adheres to the bookSchema
-    toDo: [toDoSchema]
+    toDo:   [{
+      type: Schema.Types.ObjectId,
+      ref: 'ToDo'
+      }]
   },
   // set this to use virtual below
   {

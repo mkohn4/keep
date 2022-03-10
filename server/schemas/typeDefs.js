@@ -33,7 +33,10 @@ const typeDefs = gql `
         login(email: String!, password: String!): Auth
         addUser(username: String!, email: String!, password: String!):  Auth
         addToDo(text: String!): User
-        removeToDo(_id: String!): User
+        removeToDo(_id: ID!): User
+        updateToDoDone(_id: String!): ToDo
+        updateToDoNotDone(_id: String!): ToDo
+        updateToDoText(_id: String!): ToDo
     }
 `
 
