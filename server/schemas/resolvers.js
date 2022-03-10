@@ -92,7 +92,7 @@ const resolvers = {
 
         const updateUser = await User.findOneAndUpdate(
           { _id: context.user._id },
-          { $pull: { toDo: _id } },
+          { $pull: { toDo: {_id: _id }} },
           { new: true }
         )
           .select('-__v -password')
