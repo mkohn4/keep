@@ -2,7 +2,7 @@ const {
     gql
 } = require('apollo-server-express');
 
-const typeDefs = gql `
+const typeDefs = gql`
     scalar Date
 
     type User {
@@ -34,9 +34,7 @@ const typeDefs = gql `
         addUser(username: String!, email: String!, password: String!):  Auth
         addToDo(text: String!): User
         removeToDo(_id: ID!): User
-        updateToDoDone(_id: String!): ToDo
-        updateToDoNotDone(_id: String!): ToDo
-        updateToDoText(_id: String!): ToDo
+        updateToDo(_id: ID!, text: String, done: Boolean): ToDo
     }
 `
 

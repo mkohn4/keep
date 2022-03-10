@@ -40,7 +40,7 @@ mutation addToDo($text: String!) {
 }`;
 
 export const REMOVE_TODO = gql`
-mutation removeToDo($_id: String!) {
+mutation removeToDo($_id: ID!) {
   removeToDo(_id: $_id){
       _id
       username

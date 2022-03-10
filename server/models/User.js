@@ -5,32 +5,28 @@ const {
 } = require('mongoose');
 const bcrypt = require('bcrypt');
 
-// import schema from Book.js
-const toDoSchema = require('./ToDo');
-const doneSchema = require('./Done');
-
 const userSchema = new Schema({
-    username: {
-      type: String,
-      required: true,
-      unique: true,
-    },
-    email: {
-      type: String,
-      required: true,
-      unique: true,
-      match: [/.+@.+\..+/, 'Must use a valid email address'],
-    },
-    password: {
-      type: String,
-      required: true,
-    },
-    // set toDo to be an array of data that adheres to the bookSchema
-    toDo:   [{
-      type: Schema.Types.ObjectId,
-      ref: 'ToDo'
-      }]
+  username: {
+    type: String,
+    required: true,
+    unique: true,
   },
+  email: {
+    type: String,
+    required: true,
+    unique: true,
+    match: [/.+@.+\..+/, 'Must use a valid email address'],
+  },
+  password: {
+    type: String,
+    required: true,
+  },
+  // set toDo to be an array of data that adheres to the bookSchema
+  toDo: [{
+    type: Schema.Types.ObjectId,
+    ref: 'ToDo'
+  }]
+},
   // set this to use virtual below
   {
     toJSON: {

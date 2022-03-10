@@ -7,16 +7,18 @@ import {
   createHttpLink,
 } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
-import SearchBooks from './pages/SearchBooks';
-import SavedBooks from './pages/SavedBooks';
+import Home from './pages/Home';
 import Navbar from './components/Navbar';
+import LoginForm from './components/LoginForm';
+import SignupForm from './components/SignupForm';
+
+const token = localStorage.getItem('id_token');
 
 const httpLink = createHttpLink({
   uri: '/graphql',
 })
 
 const authLink = setContext((_, { headers }) => {
-  const token = localStorage.getItem('id_token');
   return {
     headers: {
       ...headers,
@@ -30,18 +32,28 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 })
 
+
+
 function App() {
   return (
     <ApolloProvider client={client}>
       <Router>
-        <>
+         {!token ? (
+           <>
+          <LoginForm />
+          <SignupForm />
+          </>
+        ) : ( <>
           <Navbar />
           <Switch>
-            <Route exact path='/' component={SearchBooks} />
-            <Route exact path='/saved' component={SavedBooks} />
+            <Route exact path='/'> 
+           <Home />
+            </Route>
             <Route render={() => <h1 className='display-2'>Wrong page!</h1>} />
-          </Switch>
+            </Switch>
         </>
+        )}
+        
       </Router>
     </ApolloProvider>
   );
