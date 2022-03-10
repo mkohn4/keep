@@ -3,7 +3,7 @@ const {
 } = require('apollo-server-express');
 // import user model
 const {
-  User
+  User, ToDo
 } = require('../models');
 // import sign token function from auth
 const {
@@ -19,7 +19,8 @@ const resolvers = {
         const userData = await User.findOne({
           _id: context.user._id
         })
-        //   .populate('savedbooks');
+          .select('-__v -password')
+          .populate('toDo');
 
         return userData
       }
@@ -65,16 +66,19 @@ const resolvers = {
     // TODO: add a new todo
     addToDo: async (parent, args, context) => {
       if (context.user) {
+        const toDo = await ToDo.create(args);
         const updateUser = await User.findOneAndUpdate({
           _id: context.user._id
         }, {
           $push: {
-            toDo: args
+            toDo: toDo._id
           }
         }, {
           new: true,
           runValidators: true
-        });
+        })
+          .select('-__v -password')
+          .populate('toDo');
 
         return updateUser;
       }
@@ -85,12 +89,15 @@ const resolvers = {
 
     removeToDo: async (parent, { _id }, context) => {
       if (context.user) {
+
         const updateUser = await User.findOneAndUpdate(
           { _id: context.user._id },
-          { $pull: { toDo: { _id: _id } } },
+          { $pull: { toDo: _id } },
           { new: true }
-        );
-
+        )
+          .select('-__v -password')
+          .populate('toDo');
+        await ToDo.findByIdAndDelete({ _id });
         return updateUser;
       }
 
