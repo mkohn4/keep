@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
-
+import { MdCheckBoxOutlineBlank, MdCheckBox } from "react-icons/md";
 import { REMOVE_TODO } from '../utils/mutations';
 import Auth from '../utils/auth';
 
@@ -59,7 +59,7 @@ const ToDo = ({ toDos }) => {
   return (
 
     <div>
-      <div className="m-5 row justify-content-around">
+      <div className="m-1 row justify-content-around">
         {/*  */}
         <div className="col-12 col-md-6 mb-3">
           <div className="card">
@@ -70,14 +70,35 @@ const ToDo = ({ toDos }) => {
               {toDos.map((toDo) => (
                 <>
                   <li className='list-group-item d-flex justify-content-between align-items-center' key={toDo._id}>
-                    <span className="text">{toDo.text}</span>
+                    <span className="text" data-bs-toggle="modal" data-bs-target="#updateTask"> {toDo.text}</span>
                     {/* <div id={toDo._id} className="hide">
                       <textarea>{toDo.text}</textarea>
                       <button onClick={(event) => handleUpdateToDo(toDo._id, event)} >Update</button>
                     </div> */}
-                    <span className="bonus-text"> from {toDo.createdAt}</span>
+                    {/* <span className="bonus-text"> from {toDo.createdAt}</span> */}
                     <br />
-                    <button onClick={() => handleDeleteToDo(toDo._id)} id="remove-tasks" className="btn btn-delete mb-2 mb-md-4"><span className="oi oi-trash mr-2"></span>Delete</button>
+                    {/* <!-- Modal --> */}
+                    <div className="modal fade" id="updateTask" tabIndex="-1" aria-labelledby="updateTask" aria-hidden="true">
+                      <div className="modal-dialog">
+                        <div className="modal-content">
+                          <div className="modal-header">
+                            <h5 style={{ fontFamily: 'calibri' }} className="modal-title" id="exampleModalLabel">Update Task</h5>
+                            <button className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                          <div className="modal-body">
+                            Update Function
+                          </div>
+                          <div className="modal-footer">
+                            <button className="btn btn-add">Save changes</button>
+                            <button onClick={() => handleDeleteToDo(toDo._id)} id="remove-tasks" className="btn btn-danger m-1"><span className="oi oi-trash mr-2"></span>Delete Task</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className='d-flex justify-content-center'>
+                      <button id="remove-tasks" className="btn btn-success m-1 btn-sm"><span className="oi oi-task mr-2"></span>Done</button>
+
+                    </div>
                   </li>
                 </>
 
@@ -116,7 +137,7 @@ const ToDo = ({ toDos }) => {
       </button> */}
 
 
-    </div>
+    </div >
   )
 }
 

@@ -35,9 +35,11 @@ const AppNavbar = () => {
           <span className="oi oi-trash mr-2"></span>
           Delete All Tasks
         </button>
-        <span className="oi oi-task display-1 text-center mb-2 d-none d-lg-block mt-auto"></span>
-        <p className="d-none d-lg-block">“For every minute spent organizing, an hour is earned.” -Anonymous </p>
-        <p className="d-none d-lg-block"> “It takes as much energy to wish as it does to plan.” -Eleanor Roosevelt</p>
+        <div className='mt-auto'>
+          <span className="oi oi-task display-1 text-center mb-2 d-none d-lg-block mt-auto"></span>
+          <p className="d-none d-lg-block">“For every minute spent organizing, an hour is earned.” -Anonymous </p>
+          <p className="d-none d-lg-block"> “It takes as much energy to wish as it does to plan.” -Eleanor Roosevelt</p>
+        </div>
 
       </Navbar>
 
