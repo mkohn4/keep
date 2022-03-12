@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Jumbotron, Container, Col, Form, Button, Card, CardColumns } from 'react-bootstrap';
-
+import Footer from '../components/Footer';
 import Auth from '../utils/auth';
 import { useMutation, useQuery } from '@apollo/client';
 import { ADD_TODO } from '../utils/mutations';
@@ -19,7 +19,11 @@ const Home = () => {
   const [addToDo] = useMutation(ADD_TODO);
 
 
-
+  const handleInputChange = (event) => {
+    const { value } = event.target;
+    console.log(value);
+    setToDoInput(value);
+  }
   // create function to handle saving a todo to our database
   const handleAddToDo = async (event) => {
 
@@ -46,11 +50,39 @@ const Home = () => {
   };
 
   return (
-    <>
-      <Jumbotron fluid className='text-light bg-dark'>
-        <Container>
-          <h1>Add Your To-Dos!</h1>
-          <Form onSubmit={handleAddToDo}>
+    <Jumbotron fluid className='col-12 col-lg-9 d-flex flex-column h-auto'>
+      <Container>
+        <div className="modal fade" id="task-form-modal" tabIndex="-1" role="dialog" aria-labelledby="task-form-modal"
+          aria-hidden="true">
+          <div className="modal-dialog modal-dialog-centered" role="document">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title" id="task-form-modal">Add New Task</h5>
+                <button type="button" className="close" data-bs-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div className="modal-body">
+                <form>
+                  <div className="form-group">
+                    <label htmlFor="modalTaskDescription">Task description</label>
+                    <textarea className="form-control" id="modalTaskDescription" onChange={handleInputChange} />
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="modalDueDate">Due date</label>
+                    <input type="text" className="form-control" id="modalDueDate" placeholder="mm/dd/yyyy"
+                      autoComplete="off" />
+                  </div>
+                </form>
+              </div>
+              <div className="modal-footer">
+                <button type="button" className="btn btn-close" data-bs-dismiss="modal">Close</button>
+                <button type="button" className="btn btn-save" onClick={handleAddToDo}>Save Task</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        {/* <Form onSubmit={handleAddToDo}>
             <Form.Row>
               <Col xs={12} md={8}>
                 <Form.Control
@@ -63,15 +95,14 @@ const Home = () => {
                 />
               </Col>
               <Col xs={12} md={4}>
-                <Button type='submit' variant='success' size='lg'>
+                <Button type='submit' variant='success' size='lg' id="create-task" className="btn btn-block btn-add" data-toggle="modal" data-target="#task-form-modal">
+                  <span className="oi oi-plus mr-2"></span>
                   Add
                 </Button>
               </Col>
             </Form.Row>
-          </Form>
-        </Container>
-      </Jumbotron>
-
+          </Form> */}
+      </Container>
       <Container>
 
         {loading ? (
@@ -81,7 +112,8 @@ const Home = () => {
             toDos={toDos}></ToDo>
         )}
       </Container>
-    </>
+      <Footer></Footer>
+    </Jumbotron>
   );
 };
 

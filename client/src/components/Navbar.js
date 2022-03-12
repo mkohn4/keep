@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Navbar, Nav, Container, Modal, Tab } from 'react-bootstrap';
+import { Navbar, Nav, Modal, Tab } from 'react-bootstrap';
 import SignUpForm from './SignupForm';
 import LoginForm from './LoginForm';
-
+import './style.css';
 import Auth from '../utils/auth';
 
 const AppNavbar = () => {
@@ -12,25 +12,35 @@ const AppNavbar = () => {
 
   return (
     <>
-      <Navbar bg='dark' variant='dark' expand='lg'>
-        <Container fluid>
-          <Navbar.Brand as={Link} to='/'>
-            KEEP
-          </Navbar.Brand>
-          <Navbar.Toggle aria-controls='navbar' />
-          <Navbar.Collapse id='navbar'>
-            <Nav className='ml-auto'>
-              {Auth.loggedIn() ? (
-                <>
-                  <Nav.Link onClick={Auth.logout}>Logout</Nav.Link>
-                </>
-              ) : (
-                <Nav.Link onClick={() => setShowModal(true)}>Login/Sign Up</Nav.Link>
-              )}
-            </Nav>
-          </Navbar.Collapse>
-        </Container>
+      <Navbar bg='dark' variant='dark' expand='lg' className="col-12 col-lg-3 bg-dark text-light sticky-top d-flex flex-column p-4 p-lg-3">
+
+        <Navbar.Brand as={Link} to='/' className='mr-0 text-center'>
+          <h1><span className="oi oi-task d-inline d-lg-none mr-1"></span>KEEP PRO EDITION</h1>
+        </Navbar.Brand>
+
+        <Nav>
+          {Auth.loggedIn() ? (
+            <>
+              <Nav.Link onClick={Auth.logout} className='text-center'>Logout</Nav.Link>
+            </>
+          ) : (
+            <Nav.Link onClick={() => setShowModal(true)} className='text-center'>Login/Sign Up</Nav.Link>
+          )}
+        </Nav>
+        <button id="create-task" className="btn btn-block btn-add" data-bs-toggle="modal" data-bs-target="#task-form-modal">
+          <span className="oi oi-plus mr-2"></span>
+          Add Task
+        </button>
+        <button id="remove-tasks" className="btn btn-block btn-delete mb-2 mb-md-4">
+          <span className="oi oi-trash mr-2"></span>
+          Delete All Tasks
+        </button>
+        <span className="oi oi-task display-1 text-center mb-2 d-none d-lg-block mt-auto"></span>
+        <p className="d-none d-lg-block">“For every minute spent organizing, an hour is earned.” -Anonymous </p>
+        <p className="d-none d-lg-block"> “It takes as much energy to wish as it does to plan.” -Eleanor Roosevelt</p>
+
       </Navbar>
+
       {/* set modal data up */}
       <Modal
         size='lg'
