@@ -68,11 +68,12 @@ const Home = () => {
                     <label htmlFor="modalTaskDescription">Task description</label>
                     <textarea className="form-control" id="modalTaskDescription" onChange={handleInputChange} />
                   </div>
-                  <div className="form-group">
+                  {/* TO DO: Will develop further the ability to add a due date */}
+                  {/* <div className="form-group">
                     <label htmlFor="modalDueDate">Due date</label>
                     <input type="text" className="form-control" id="modalDueDate" placeholder="mm/dd/yyyy"
                       autoComplete="off" />
-                  </div>
+                  </div> */}
                 </form>
               </div>
               <div className="modal-footer">
