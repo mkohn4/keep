@@ -16,7 +16,7 @@ const ToDo = ({ toDos }) => {
     return <h3>Please Login to Add To-Dos</h3>
   } else if     //if no Todos returned, return this h3
     (!toDos.length) {
-    return <h3>No To-Dos Yet!</h3>
+    return <h3 className='text-center'>No To-Dos Yet!</h3>
   }
 
   // create function that accepts the book's mongo _id value as param and deletes the todo from the database
@@ -73,7 +73,7 @@ const ToDo = ({ toDos }) => {
               {toDos.map((toDo) => (
                 <>
                   <li className='list-group-item d-flex justify-content-between align-items-center' key={toDo._id}>
-                    <span className="text" data-bs-toggle="modal" data-bs-target="#update-modal"> {toDo.text}</span>
+                    <span className="text" data-bs-toggle="modal" data-bs-target="#update-modal" data-id={toDo.id} > {toDo.text}</span>
                     {/* <span className="bonus-text"> from {toDo.createdAt}</span> */}
                     <br />
                     {/* <!-- Modal --> */}
@@ -96,14 +96,13 @@ const ToDo = ({ toDos }) => {
                           </div>
                           <div className="modal-footer">
                             <button className="btn btn-add" onClick={() => handleUpdateToDo(toDo._id, updateText)}>Save changes</button>
-                            <button onClick={() => handleDeleteToDo(toDo._id)} id="remove-tasks" className="btn btn-danger m-1"><span className="oi oi-trash mr-2"></span>Delete Task</button>
                           </div>
                         </div>
                       </div>
                     </div>
                     <div className='d-flex justify-content-center'>
-                      <button id="remove-tasks" data-bs-toggle='modal' className="btn btn-success m-1 btn-sm"><span className="oi oi-task mr-2"></span>Done</button>
-
+                      <button className="btn btn-light btn-sm m-1" data-bs-toggle="modal" data-bs-target="#update-modal" data-id={toDo.id} >Update task</button>
+                      <button onClick={() => handleDeleteToDo(toDo._id)} id="remove-tasks" data-bs-toggle='modal' className="btn btn-success m-1 btn-sm"><span className="oi oi-task mr-2"></span>Done</button>
                     </div>
                   </li>
                 </>
@@ -113,37 +112,7 @@ const ToDo = ({ toDos }) => {
             </ul>
           </div>
         </div>
-        {/*             
-            <div className="col-12 col-md-6 col-xl-3 mb-3">
-              <div className="card">
-                <h4 className="card-header bg-dark text-light d-flex align-items-center">
-                  In Progress
-                </h4>
-                <ul id="list-inProgress" className="list-group list-group-flush">
-                </ul>
-              </div>
-            </div> */}
-        {/*  */}
-        <div className="col-12 col-md-6 mb-3">
-          <div className="card">
-            <h4 className="card-header bg-dark text-light d-flex align-items-center">
-              Done
-            </h4>
-            <ul id="list-done" className="list-group list-group-flush">
-            </ul>
-          </div>
-        </div>
       </div>
-      {/* <button id="create-task" className="btn btn-block btn-add" data-toggle="modal" data-target="#task-form-modal">
-        <span className="oi oi-plus mr-2"></span>
-        Add Task
-      </button>
-      <button id="remove-tasks" className="btn btn-block btn-delete mb-2 mb-md-4">
-        <span className="oi oi-trash mr-2"></span>
-        Delete All Tasks
-      </button> */}
-
-
     </div >
   )
 }

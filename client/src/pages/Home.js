@@ -66,12 +66,6 @@ const Home = () => {
                     <label htmlFor="modalTaskDescription">Task description</label>
                     <textarea className="form-control" id="modalTaskDescription" onChange={handleInputChange} value={toDoInput}>{toDoInput}</textarea>
                   </div>
-                  {/* TO DO: Will develop further the ability to add a due date */}
-                  {/* <div className="form-group">
-                    <label htmlFor="modalDueDate">Due date</label>
-                    <input type="text" className="form-control" id="modalDueDate" placeholder="mm/dd/yyyy"
-                      autoComplete="off" />
-                  </div> */}
                 </form>
               </div>
               <div className="modal-footer">
@@ -81,26 +75,6 @@ const Home = () => {
             </div>
           </div>
         </div>
-        {/* <Form onSubmit={handleAddToDo}>
-            <Form.Row>
-              <Col xs={12} md={8}>
-                <Form.Control
-                  name='toDoInput'
-                  value={toDoInput}
-                  onChange={(e) => setToDoInput(e.target.value)}
-                  type='text'
-                  size='lg'
-                  placeholder='What do you need to do?'
-                />
-              </Col>
-              <Col xs={12} md={4}>
-                <Button type='submit' variant='success' size='lg' id="create-task" className="btn btn-block btn-add" data-toggle="modal" data-target="#task-form-modal">
-                  <span className="oi oi-plus mr-2"></span>
-                  Add
-                </Button>
-              </Col>
-            </Form.Row>
-          </Form> */}
       </Container>
       <Container>
 
