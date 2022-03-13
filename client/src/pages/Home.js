@@ -44,7 +44,7 @@ const Home = () => {
     }
     //clear ToDo Input value
     setToDoInput('');
-    console.log(toDoInput);
+
   };
 
   return (
