@@ -8,7 +8,7 @@ const ToDo = ({ toDos }) => {
   //set removeToDo as the mutation REMOVE_TODO
   const [removeToDo] = useMutation(REMOVE_TODO);
   const [updateToDo] = useMutation(UPDATE_TODO);
-
+  const [updateText, setUpdateText] = useState('');
   //get user token from auth function
   const token = Auth.loggedIn() ? Auth.getToken() : null;
 
@@ -39,15 +39,16 @@ const ToDo = ({ toDos }) => {
 
   };
 
-  const handleUpdateToDo = async (toDoId) => {
+  const handleUpdateToDo = async (toDoId, toDoText) => {
     //if no token do return out of function
     if (!token) {
       return false;
     }
     //try to async remove the todo by passing in the toDoId param to match _id in db
+    console.log(toDoText);
     try {
       await updateToDo({
-        variables: { _id: toDoId }
+        variables: { _id: toDoId, text: toDoText, done: false }
       });
       return window.location.reload();
     } catch (err) {
@@ -89,25 +90,26 @@ const ToDo = ({ toDos }) => {
                             <form>
                               <div className="form-group" id={toDo._id}>
                                 <label htmlFor="modalTaskDescription">Task description</label>
-                                <textarea className="form-control" id="modalTaskDescription" />
+                                <textarea className="form-control" id="modalTaskDescription" onChange={(e) => setUpdateText(e.target.value)} />
                               </div>
                             </form>
                           </div>
                           <div className="modal-footer">
-                            <button className="btn btn-add" onClick={() => handleUpdateToDo(toDo._id)}>Save changes</button>
+                            <button className="btn btn-add" onClick={() => handleUpdateToDo(toDo._id, updateText)}>Save changes</button>
                             <button onClick={() => handleDeleteToDo(toDo._id)} id="remove-tasks" className="btn btn-danger m-1"><span className="oi oi-trash mr-2"></span>Delete Task</button>
                           </div>
                         </div>
                       </div>
                     </div>
                     <div className='d-flex justify-content-center'>
-                      <button id="remove-tasks" className="btn btn-success m-1 btn-sm"><span className="oi oi-task mr-2"></span>Done</button>
+                      <button id="remove-tasks" data-bs-toggle='modal' className="btn btn-success m-1 btn-sm"><span className="oi oi-task mr-2"></span>Done</button>
 
                     </div>
                   </li>
                 </>
 
               ))}
+
             </ul>
           </div>
         </div>

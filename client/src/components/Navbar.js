@@ -27,14 +27,15 @@ const AppNavbar = () => {
             <Nav.Link onClick={() => setShowModal(true)} className='text-center'>Login/Sign Up</Nav.Link>
           )}
         </Nav>
+        <br />
         <button id="create-task" className="btn btn-block btn-add" data-bs-toggle="modal" data-bs-target="#task-form-modal">
           <span className="oi oi-plus mr-2"></span>
           Add Task
         </button>
-        <button id="remove-tasks" className="btn btn-block btn-delete mb-2 mb-md-4">
+        {/* <button id="remove-tasks" className="btn btn-block btn-delete mb-2 mb-md-4">
           <span className="oi oi-trash mr-2"></span>
           Delete All Tasks
-        </button>
+        </button> */}
         <div className='mt-auto'>
           <span className="oi oi-task display-1 text-center mb-2 d-none d-lg-block mt-auto"></span>
           <p className="d-none d-lg-block">“For every minute spent organizing, an hour is earned.” -Anonymous </p>

@@ -21,15 +21,12 @@ const Home = () => {
 
   const handleInputChange = (event) => {
     const { value } = event.target;
-    console.log(value);
     setToDoInput(value);
   }
   // create function to handle saving a todo to our database
   const handleAddToDo = async (event) => {
 
     event.preventDefault();
-    console.log(toDoInput);
-
     // get token
     const token = Auth.loggedIn() ? Auth.getToken() : null;
 
@@ -46,7 +43,8 @@ const Home = () => {
       console.error(err);
     }
     //clear ToDo Input value
-    setToDoInput('')
+    setToDoInput('');
+    console.log(toDoInput);
   };
 
   return (
@@ -66,7 +64,7 @@ const Home = () => {
                 <form>
                   <div className="form-group">
                     <label htmlFor="modalTaskDescription">Task description</label>
-                    <textarea className="form-control" id="modalTaskDescription" onChange={handleInputChange} />
+                    <textarea className="form-control" id="modalTaskDescription" onChange={handleInputChange} value={toDoInput}>{toDoInput}</textarea>
                   </div>
                   {/* TO DO: Will develop further the ability to add a due date */}
                   {/* <div className="form-group">
@@ -78,7 +76,7 @@ const Home = () => {
               </div>
               <div className="modal-footer">
                 <button type="button" className="btn btn-close" data-bs-dismiss="modal">Close</button>
-                <button type="button" className="btn btn-save" onClick={handleAddToDo}>Save Task</button>
+                <button type="button" className="btn btn-save" data-bs-toggle='modal' data-bs-target='task-form-modal' onClick={handleAddToDo}>Save Task</button>
               </div>
             </div>
           </div>
