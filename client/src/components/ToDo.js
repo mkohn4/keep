@@ -10,8 +10,8 @@ const ToDo = () => {
   const [toDoId, setToDoId] = useState('');
   const [toDoText, setToDoText] = useState('');
   //set removeToDo as the mutation REMOVE_TODO
-  const [removeToDo] = useMutation(REMOVE_TODO);
-  const [updateToDo] = useMutation(UPDATE_TODO);
+  const [removeToDo] = useMutation(REMOVE_TODO, { refetchQueries: [QUERY_ME] });
+  const [updateToDo] = useMutation(UPDATE_TODO, { refetchQueries: [QUERY_ME] });
   //get user token from auth function
   const token = Auth.loggedIn() ? Auth.getToken() : null;
   if (!token) {
@@ -61,8 +61,7 @@ const ToDo = () => {
       await removeToDo({
         variables: { _id: toDoId }
       });
-      // TODO: Reload array without using window.location.reload
-      return window.location.reload();
+
     } catch (err) {
       //else console log error if unsuccessful
       console.error(err);
