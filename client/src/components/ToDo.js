@@ -29,6 +29,7 @@ const ToDo = () => {
   }
   const handleInputChange = (event) => {
     const { value } = event.target;
+    console.log(value);
     setToDoText(value);
   }
   // create function to handle saving a todo to our database
@@ -41,7 +42,7 @@ const ToDo = () => {
     }
     try {
       //update todo to DB by passing toDoUpdate state variable as text attribute
-      await updateToDo({ variables: { _id: toDoId, text: toDoText, done: false } })
+      await updateToDo({ variables: { _id: toDoId, text: toDoText } })
     } catch (err) {
       console.log('we got an error bud');
       console.error(err);
@@ -119,7 +120,7 @@ const ToDo = () => {
                             <form>
                               <div className="form-group">
                                 <label htmlFor="modalTaskDescription">Task description</label>
-                                <textarea className="form-control" id="modalTaskDescription" onChange={handleInputChange} value={toDoText}>{toDoText}</textarea>
+                                <textarea className="form-control" id="modalTaskDescription" onChange={handleInputChange} value={toDoText} placeholder={toDo.text}></textarea>
                               </div>
                             </form>
                           </div>

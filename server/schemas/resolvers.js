@@ -108,12 +108,16 @@ const resolvers = {
       throw new AuthenticationError('You need to be logged in');
     },
 
+<<<<<<< HEAD
     // Update a todo by _if
     updateToDo: async (parent, { _id, text, done }, context) => {
+=======
+    updateToDo: async (parent, { _id, text }, context) => {
+>>>>>>> a925efdccb64e83443e02596b533573568858643
       if (context.user) {
         const updateToDo = await ToDo.findOneAndUpdate(
           { _id },
-          { text, done },
+          { text },
           { new: true }
         )
         .select('-__v -password')

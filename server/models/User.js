@@ -21,7 +21,7 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
-  // set toDo to be an array of data that adheres to the bookSchema
+  // set toDo to be an array of data that adheres to the toDoSchema
   toDo: [{
     type: Schema.Types.ObjectId,
     ref: 'ToDo'
@@ -50,10 +50,6 @@ userSchema.methods.isCorrectPassword = async function (password) {
   return bcrypt.compare(password, this.password);
 };
 
-// when we query a user, we'll also get another field called `bookCount` with the number of saved books we have
-// userSchema.virtual('bookCount').get(function () {
-//   return this.savedBooks.length;
-// });
 
 const User = model('User', userSchema);
 
