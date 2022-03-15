@@ -116,10 +116,21 @@ const resolvers = {
       }
 
       throw new AuthenticationError('You need to be logged in');
-    }
+    },
 
-    // TODO: update todo text
-    // TODO: update to opposite boolean
+    updateDone: async (parent, { _id, done }, context) => {
+      if (context.user) {
+        const updateUser = await ToDo.findOneAndUpdate(
+          { _id },
+          { done },
+          { new: true }
+        ).populate('toDo');
+
+        return updateUser;
+      }
+
+      throw new AuthenticationError('You need to be logged in');
+    }
   }
 };
 

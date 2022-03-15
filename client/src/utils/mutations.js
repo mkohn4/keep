@@ -64,3 +64,14 @@ mutation updateToDo($_id:ID!,$text:String, $done:Boolean) {
       updatedAt
 	}
 }`;
+
+export const UPDATE_DONE = gql`
+mutation updateDone($_id: ID!, $done: Boolean ) {
+  updateDone(_id: $_id, done: $done){
+        _id
+        text
+        createdAt
+        updatedAt
+        done
+  }
+}`;
