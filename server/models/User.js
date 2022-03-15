@@ -1,6 +1,7 @@
 const {
   Schema,
-  model
+  model,
+  Types
 } = require('mongoose');
 const bcrypt = require('bcrypt');
 
