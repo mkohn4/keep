@@ -104,11 +104,11 @@ const resolvers = {
       throw new AuthenticationError('You need to be logged in');
     },
 
-    updateToDo: async (parent, { _id, text, done }, context) => {
+    updateToDo: async (parent, { _id, text }, context) => {
       if (context.user) {
         const updateUser = await ToDo.findOneAndUpdate(
           { _id },
-          { text, done },
+          { text },
           { new: true }
         ).populate('toDo');
 
