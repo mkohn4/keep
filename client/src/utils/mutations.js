@@ -54,43 +54,24 @@ mutation removeToDo($_id: ID!) {
   }
 }`;
 
+export const UPDATE_TODO = gql`
+mutation updateToDo($_id:ID!,$text:String) {
+  updateToDo(_id:$_id, text: $text) {
+      _id
+      text
+      done
+      createdAt
+      updatedAt
+	}
+}`;
 
-
-
-
-
-// for reference
-export const SAVE_BOOK = gql`
-  mutation saveBook($authors:[String], $description: String!, $bookId: String!, $title: String!, $image: String, $link: String) {
-      saveBook(authors: $authors, description: $description, bookId: $bookId,  title: $title, image: $image, link: $link){
-          _id
-          username
-          bookCount
-          savedBooks {
-            bookId
-            authors
-            description
-            title
-            image
-            link
-         }
-      }
+export const UPDATE_DONE = gql`
+mutation updateDone($_id: ID!, $done: Boolean ) {
+  updateDone(_id: $_id, done: $done){
+        _id
+        text
+        createdAt
+        updatedAt
+        done
   }
-`;
-
-export const REMOVE_BOOK = gql`
-  mutation removeBook($bookId: String!) {
-      removeBook(bookId: $bookId){
-          _id
-          bookCount
-          savedBooks {
-            bookId
-            authors
-            description
-            title
-            image
-            link
-          }
-      }
-  }
-`;
+}`;
