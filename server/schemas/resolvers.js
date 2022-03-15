@@ -123,6 +123,20 @@ const resolvers = {
       }
 
       throw new AuthenticationError('You need to be logged in');
+    },
+
+    updateDone: async (parent, { _id, done }, context) => {
+      if (context.user) {
+        const updateUser = await ToDo.findOneAndUpdate(
+          { _id },
+          { done },
+          { new: true }
+        ).populate('toDo');
+
+        return updateUser;
+      }
+
+      throw new AuthenticationError('You need to be logged in');
     }
   }
 };
