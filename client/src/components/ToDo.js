@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useMutation, useQuery } from '@apollo/client';
 import { QUERY_ME } from '../utils/queries';
-import { REMOVE_TODO, UPDATE_TODO } from '../utils/mutations';
+import { REMOVE_TODO, UPDATE_TODO, UPDATE_DONE } from '../utils/mutations';
 import Auth from '../utils/auth';
 const ToDo = () => {
   const { loading, data } = useQuery(QUERY_ME);
@@ -12,6 +12,7 @@ const ToDo = () => {
   //set removeToDo as the mutation REMOVE_TODO
   const [removeToDo] = useMutation(REMOVE_TODO, { refetchQueries: [QUERY_ME] });
   const [updateToDo] = useMutation(UPDATE_TODO, { refetchQueries: [QUERY_ME] });
+  const [updateDone] = useMutation(UPDATE_DONE, { refetchQueries: [QUERY_ME] });
   //get user token from auth function
   const token = Auth.loggedIn() ? Auth.getToken() : null;
   if (!token) {
@@ -23,6 +24,7 @@ const ToDo = () => {
   //state to set value to selected To Do's id
   const passId = (event) => {
     const toDoId = event.target.id;
+    console.log(toDoId);
     setToDoId(toDoId);
   }
   const handleInputChange = (event) => {
@@ -39,7 +41,7 @@ const ToDo = () => {
     }
     try {
       //update todo to DB by passing toDoUpdate state variable as text attribute
-      await updateToDo({ variables: { _id: toDoId, text: toDoText } })
+      await updateToDo({ variables: { _id: toDoId, text: toDoText, done: false } })
     } catch (err) {
       console.log('we got an error bud');
       console.error(err);
@@ -67,6 +69,26 @@ const ToDo = () => {
       console.error(err);
     }
   }
+
+  const handleUpdateDone = async (toDoId) => {
+
+    //if no token do return out of function
+    if (!token) {
+      return false;
+    }
+
+    //try to async remove the todo by passing in the toDoId param to match _id in db
+    try {
+      await updateDone({
+        variables: { _id: toDoId, done:true }
+      });
+
+    } catch (err) {
+      //else console log error if unsuccessful
+      console.error(err);
+    }
+  }
+
   return (
     <div>
       <div className="m-1 row justify-content-around">
@@ -77,7 +99,7 @@ const ToDo = () => {
               To Do
             </h4>
             <ul id="list-toDo" className="list-group list-group-flush">
-              {toDos.map((toDo) => (
+              {toDos.filter(toDo => (toDo.done === false)).map(toDo => (
                 <>
                   <li className='list-group-item d-flex justify-content-between align-items-center' >
                     <span className="text" data-bs-toggle="modal" data-bs-target="#update-modal" onClick={passId} value={toDoId} key={toDo._id} id={toDo._id}> {toDo.text} </span>
@@ -109,7 +131,8 @@ const ToDo = () => {
                       </div>
                     </div>
                     <div className='d-flex justify-content-center'>
-                      <button onClick={() => handleDeleteToDo(toDo._id)} id="update-modal" className="btn btn-success m-1 btn-sm"><span className="oi oi-task mr-2"></span>Done</button>
+                      <button onClick={() => handleUpdateDone(toDo._id)} id="update-modal" className="btn btn-success m-1 btn-sm"><span className="oi oi-task"></span></button>
+                      <button onClick={() => handleDeleteToDo(toDo._id)} id="update-modal" className="btn btn-danger m-1 btn-sm"><span className="oi oi-trash"></span></button>
                     </div>
                   </li>
                 </>
@@ -129,11 +152,48 @@ const ToDo = () => {
             </div> */}
         {/*  */}
         <div className="col-12 col-md-6 mb-3">
-          <div className="card">
+        <div className="card">
             <h4 className="card-header bg-dark text-light d-flex align-items-center">
               Done
             </h4>
             <ul id="list-done" className="list-group list-group-flush">
+            {toDos.filter(toDo => (toDo.done === true)).map(toDo => (
+                <>
+                  <li className='list-group-item d-flex justify-content-between align-items-center' >
+                    <span className="text" data-bs-toggle="modal" data-bs-target="#update-modal" onClick={passId} value={toDoId} key={toDo._id} id={toDo._id}> {toDo.text} </span>
+                    {/* <span className="bonus-text"> from {toDo.createdAt}</span> */}
+                    <br />
+                    {/* <!-- Modal --> */}
+                    <div className="modal fade" id="update-modal" tabIndex="-1" role="dialog" aria-labelledby="update-modal" aria-hidden="true">
+                      <div className="modal-dialog modal-dialog-centered" role="document">
+                        <div className="modal-content">
+                          <div className="modal-header">
+                            <h5 className="modal-title" id="update-modal">Modify Task</h5>
+                            <button type="button" className="close" data-bs-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">×</span>
+                            </button>
+                          </div>
+                          <div className="modal-body">
+                            <form>
+                              <div className="form-group">
+                                <label htmlFor="modalTaskDescription">Task description</label>
+                                <textarea className="form-control" id="modalTaskDescription" onChange={handleInputChange} value={toDoText}>{toDoText}</textarea>
+                              </div>
+                            </form>
+                          </div>
+                          <div className="modal-footer">
+                            <button type='button' className="btn btn-add" onClick={() => handleUpdateToDo(toDoId, toDoText)} data-bs-toggle='modal' data-bs-target='update-modal'>Save changes</button>
+                            <button type='button' onClick={() => handleDeleteToDo(toDoId)} id="update-modal" data-bs-toggle='modal' data-bs-target='update-modal' className="btn btn-danger m-1"><span className="oi oi-trash mr-2"></span>Delete Task</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className='d-flex justify-content-center'>
+                      <button onClick={() => handleDeleteToDo(toDo._id)} id="update-modal" className="btn btn-danger m-1 btn-sm"><span className="oi oi-trash"></span></button>
+                    </div>
+                  </li>
+                </>
+              ))}
             </ul>
           </div>
         </div>
