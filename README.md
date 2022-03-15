@@ -1,73 +1,59 @@
-# Book Search Engine
+# KEEP
 
 ## Links
 
-- 🌎 [Live](https://pure-sands-10724.herokuapp.com/)
-- 💾 [Repo](https://github.com/gallolopez1/book-search-engine)
+- 🌎 [Live](https://ancient-depths-61432.herokuapp.com/ / https://dashboard.heroku.com/apps/ancient-depths-61432/access)
+- 💾 [Repo](https://github.com/mkohn4/keep.git)
 
 # <u> App Preview</u>
 
 #### Landing Page
 
-<img src="/assets/landing-page.jpg" alt="Landing Page" />
+<img src="/assets/landing-page.png" alt="Landing Page" />
 
 #### Login / Sign Up
 
-<img src="/assets/login.jpg" alt="Login / Sign Up" />
+<img src="/assets/login.png" alt="Login / Sign Up" />
 
-#### Save a book after you log in!
+#### Create a Task after you log in!
 
-<img src="/assets/save.jpg" alt="Login / Sign Up" />
+<img src="/assets/save.png" alt="Login / Sign Up" />
 
-#### View your books and delete them!
+#### View your tasks and delete them!
 
-<img src="/assets/saved.jpg" alt="Login / Sign Up" />
+<img src="/assets/saved.png" alt="Login / Sign Up" />
 
-## <u> Challenge instructions:</u>
+### Project Requirements
 
-Take a fully functioning Google Books API search engine built with a RESTful API, and refactor it to be a GraphQL API built with Apollo Server. The app was built using the MERN stack, with a React front end, MongoDB database, and Node.js/Express.js server and API. It's already set up to allow users to save book searches to the back end.
+Your group will use everything you’ve learned throughout this course to create a MERN stack single-page application that works with real-world data to solve a real-world challenge, with a focus on user demand. The user story and acceptance criteria will depend on the project that you create, but your project must fulfill some specific requirements.
 
-## User Story
+Your project should fulfill the following requirements:
 
-```
-AS AN avid reader
-I WANT to search for new books to read
-SO THAT I can keep a list of books to purchase
-```
+Use React for the front end.
 
-## Acceptance Criteria
+Use GraphQL with a Node.js and Express.js server.
 
-```
-GIVEN a book search engine
-WHEN I load the search engine
-THEN I am presented with a menu with the options Search for Books and Login/Signup and an input field to search for books and a submit button
-WHEN I click on the Search for Books menu option
-THEN I am presented with an input field to search for books and a submit button
-WHEN I am not logged in and enter a search term in the input field and click the submit button
-THEN I am presented with several search results, each featuring a book’s title, author, description, image, and a link to that book on the Google Books site
-WHEN I click on the Login/Signup menu option
-THEN a modal appears on the screen with a toggle between the option to log in or sign up
-WHEN the toggle is set to Signup
-THEN I am presented with three inputs for a username, an email address, and a password, and a signup button
-WHEN the toggle is set to Login
-THEN I am presented with two inputs for an email address and a password and login button
-WHEN I enter a valid email address and create a password and click on the signup button
-THEN my user account is created and I am logged in to the site
-WHEN I enter my account’s email address and password and click on the login button
-THEN I the modal closes and I am logged in to the site
-WHEN I am logged in to the site
-THEN the menu options change to Search for Books, an option to see my saved books, and Logout
-WHEN I am logged in and enter a search term in the input field and click the submit button
-THEN I am presented with several search results, each featuring a book’s title, author, description, image, and a link to that book on the Google Books site and a button to save a book to my account
-WHEN I click on the Save button on a book
-THEN that book’s information is saved to my account
-WHEN I click on the option to see my saved books
-THEN I am presented with all of the books I have saved to my account, each featuring the book’s title, author, description, image, and a link to that book on the Google Books site and a button to remove a book from my account
-WHEN I click on the Remove button on a book
-THEN that book is deleted from my saved books list
-WHEN I click on the Logout button
-THEN I am logged out of the site and presented with a menu with the options Search for Books and Login/Signup and an input field to search for books and a submit button
-```
+Use MongoDB and the Mongoose ODM for the database.
+
+Use queries and mutations for retrieving, adding, updating, and deleting data.
+
+Be deployed using Heroku (with data).
+
+Have a polished UI.
+
+Be responsive.
+
+Be interactive (i.e., accept and respond to user input).
+
+Include authentication (JWT).
+
+Protect sensitive API key information on the server.
+
+Have a clean repository that meets quality coding standards (file structure, naming conventions, best practices for class and id naming conventions, indentation, quality comments, etc.).
+
+Have a high-quality README (with unique name, description, technologies used, screenshot, and link to deployed application).
+
+
 
 ## References:
 
