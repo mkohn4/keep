@@ -29,8 +29,7 @@ const resolvers = {
   },
 
   Mutation: {
-
-    // Create a user, sign a token, and send it back (to client/src/components/SignUpForm.js)
+    // create a user, sign a token, and send it back (to client/src/components/SignUpForm.js)
     addUser: async (parent, args) => {
       const user = await User.create(args);
       const token = signToken(user);
@@ -40,8 +39,7 @@ const resolvers = {
         user
       };
     },
-
-    // Login a user, sign a token, and send it back (to client/src/components/LoginForm.js)
+    // login a user, sign a token, and send it back (to client/src/components/LoginForm.js)
     login: async (parent, {
       email,
       password
@@ -65,12 +63,11 @@ const resolvers = {
         user
       };
     },
-
-    // Add a new todo
+    // TODO: add a new todo
     addToDo: async (parent, args, context) => {
       if (context.user) {
         const toDo = await ToDo.create(args);
-        const updateToDo = await User.findOneAndUpdate({
+        const updateUser = await User.findOneAndUpdate({
           _id: context.user._id
         }, {
           $push: {
@@ -83,41 +80,53 @@ const resolvers = {
           .select('-__v -password')
           .populate('toDo');
 
-        return updateToDo;
+        return updateUser;
       }
 
       throw new AuthenticationError('You need to be logged in');
     },
 
-    // Remove a todo by _id
+
     removeToDo: async (parent, { _id }, context) => {
       if (context.user) {
 
-        const updateToDo = await User.findOneAndUpdate(
+        const updateUser = await User.findOneAndUpdate(
           { _id: context.user._id },
-            { $pull: { toDo: _id }},
+          { $pull: { toDo: {_id: _id }} },
           { new: true }
         )
           .select('-__v -password')
           .populate('toDo');
-        return updateToDo;
+        await ToDo.findByIdAndDelete({ _id });
+        return updateUser;
       }
 
       throw new AuthenticationError('You need to be logged in');
     },
 
-    // Update a todo by _if
-    updateToDo: async (parent, { _id, text, done }, context) => {
+    updateToDo: async (parent, { _id, text }, context) => {
       if (context.user) {
-        const updateToDo = await ToDo.findOneAndUpdate(
+        const updateUser = await ToDo.findOneAndUpdate(
           { _id },
-          { text, done },
+          { text },
           { new: true }
-        )
-        .select('-__v -password')
-        .populate('toDo')
+        ).populate('toDo');
 
-        return updateToDo;
+        return updateUser;
+      }
+
+      throw new AuthenticationError('You need to be logged in');
+    },
+
+    updateDone: async (parent, { _id, done }, context) => {
+      if (context.user) {
+        const updateUser = await ToDo.findOneAndUpdate(
+          { _id },
+          { done },
+          { new: true }
+        ).populate('toDo');
+
+        return updateUser;
       }
 
       throw new AuthenticationError('You need to be logged in');

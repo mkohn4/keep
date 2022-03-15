@@ -34,7 +34,8 @@ const typeDefs = gql`
         addUser(username: String!, email: String!, password: String!):  Auth
         addToDo(text: String!): User
         removeToDo(_id: ID!): User
-        updateToDo(_id: ID!, text: String, done: Boolean): ToDo
+        updateToDo(_id: ID!, text: String): ToDo
+        updateDone(_id: ID!, done: Boolean): ToDo
     }
 `
 

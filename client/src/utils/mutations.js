@@ -55,12 +55,23 @@ mutation removeToDo($_id: ID!) {
 }`;
 
 export const UPDATE_TODO = gql`
-mutation updateToDo($_id:ID!,$text:String, $done:Boolean) {
-  updateToDo(_id:$_id, text: $text, done:$done) {
+mutation updateToDo($_id:ID!,$text:String) {
+  updateToDo(_id:$_id, text: $text) {
       _id
       text
       done
       createdAt
       updatedAt
 	}
+}`;
+
+export const UPDATE_DONE = gql`
+mutation updateDone($_id: ID!, $done: Boolean ) {
+  updateDone(_id: $_id, done: $done){
+        _id
+        text
+        createdAt
+        updatedAt
+        done
+  }
 }`;

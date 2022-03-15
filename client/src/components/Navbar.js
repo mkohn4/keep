@@ -15,7 +15,7 @@ const AppNavbar = () => {
       <Navbar bg='dark' variant='dark' expand='lg' className="col-12 col-lg-3 bg-dark text-light sticky-top d-flex flex-column p-4 p-lg-3">
 
         <Navbar.Brand as={Link} to='/' className='mr-0 text-center'>
-          <h1><span className="oi oi-task d-inline d-lg-none mr-1"></span>KEEP PRO EDITION</h1>
+          <h1><span className="oi oi-task d-inline d-lg-none mr-1"></span>KEEP ( PRO EDITION )</h1>
         </Navbar.Brand>
 
         <Nav>
