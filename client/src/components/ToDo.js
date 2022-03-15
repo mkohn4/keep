@@ -23,10 +23,12 @@ const ToDo = () => {
   }
   //state to set value to selected To Do's id
   const passId = (event) => {
+    const toDoUpdateText = event.target.innerText
     const toDoId = event.target.id;
-    console.log(toDoId);
     setToDoId(toDoId);
+    setToDoText(toDoUpdateText)
   }
+
   const handleInputChange = (event) => {
     const { value } = event.target;
     console.log(value);
@@ -120,7 +122,7 @@ const ToDo = () => {
                             <form>
                               <div className="form-group">
                                 <label htmlFor="modalTaskDescription">Task description</label>
-                                <textarea className="form-control" id="modalTaskDescription" onChange={handleInputChange} value={toDoText} placeholder={toDo.text}></textarea>
+                                <textarea className="form-control" id="modalTaskDescription" onChange={handleInputChange} value={toDoText}></textarea>
                               </div>
                             </form>
                           </div>
@@ -178,7 +180,7 @@ const ToDo = () => {
                             <form>
                               <div className="form-group">
                                 <label htmlFor="modalTaskDescription">Task description</label>
-                                <textarea className="form-control" id="modalTaskDescription" onChange={handleInputChange} value={toDoText}>{toDoText}</textarea>
+                                <textarea className="form-control" id="modalTaskDescription" onChange={handleInputChange} value={toDoText}></textarea>
                               </div>
                             </form>
                           </div>
