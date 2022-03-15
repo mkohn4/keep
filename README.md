@@ -2,7 +2,7 @@
 
 ## Links
 
-- 🌎 [Live](https://ancient-depths-61432.herokuapp.com/ / https://dashboard.heroku.com/apps/ancient-depths-61432/access)
+- 🌎 [Live](https://ancient-depths-61432.herokuapp.com/)
 - 💾 [Repo](https://github.com/mkohn4/keep.git)
 
 # <u> App Preview</u>
