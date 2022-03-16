@@ -4,7 +4,7 @@ import { QUERY_ME } from '../utils/queries';
 import { REMOVE_TODO, UPDATE_TODO, UPDATE_DONE } from '../utils/mutations';
 import Auth from '../utils/auth';
 
-const ToDo = (props) => {
+const Done = (props) => {
   const { toDoId, text, done } =
     props;
   const { loading, data } = useQuery(QUERY_ME);
@@ -127,7 +127,7 @@ const ToDo = (props) => {
           </div>
         </div>
         <div className='d-flex justify-content-center'>
-          <button onClick={() => handleUpdateDone(toDoId)} id="update-modal" className="btn btn-success m-1 btn-sm"><span className="oi oi-task"></span></button>
+          {/* <button onClick={() => handleUpdateDone(toDoId)} id="update-modal" className="btn btn-success m-1 btn-sm"><span className="oi oi-task"></span></button> */}
           <button onClick={() => handleDeleteToDo(toDoId)} id="update-modal" className="btn btn-danger m-1 btn-sm"><span className="oi oi-trash"></span></button>
         </div>
       </li>
@@ -201,4 +201,4 @@ const ToDo = (props) => {
     // </div >
   );
 }
-export default ToDo;
+export default Done;

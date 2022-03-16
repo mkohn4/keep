@@ -6,6 +6,7 @@ import { useMutation, useQuery } from '@apollo/client';
 import { ADD_TODO } from '../utils/mutations';
 import { QUERY_ME } from '../utils/queries';
 import ToDo from '../components/ToDo';
+import Done from '../components/Done';
 
 const Home = () => {
 
@@ -23,6 +24,7 @@ const Home = () => {
     const { value } = event.target;
     setToDoInput(value);
   }
+
   // create function to handle saving a todo to our database
   const handleAddToDo = async (event) => {
 
@@ -47,6 +49,10 @@ const Home = () => {
 
   };
 
+
+  if(loading) {
+    return <div>Loading...</div>
+  }
   return (
     <Jumbotron fluid className='col-12 col-lg-9 d-flex flex-column h-auto'>
       <Container>
@@ -77,15 +83,51 @@ const Home = () => {
         </div>
       </Container>
       <Container>
-
-        {loading ? (
-          <div>Loading...</div>
-        ) : (
-          <ToDo
-            toDos={toDos}></ToDo>
-        )}
+      <div className="m-1 row justify-content-around">
+        {/*  */}
+        <div className="col-12 col-md-6 mb-3">
+          <div className="card">
+            <h4 className="card-header bg-dark text-light d-flex align-items-center">
+              To Do
+            </h4>
+            <ul id="list-toDo" className="list-group list-group-flush">
+          {toDos.filter(toDo => (toDo.done === false)).map((toDo) => {
+            return (
+              <ToDo
+                key={toDo._id}
+                toDoId={toDo._id}
+                text={toDo.text}
+                done={toDo.done}
+              />
+             );
+            })}
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div className="m-1 row justify-content-around">
+        {/*  */}
+        <div className="col-12 col-md-6 mb-3">
+          <div className="card">
+            <h4 className="card-header bg-dark text-light d-flex align-items-center">
+              Done
+            </h4>
+            <ul id="list-toDo" className="list-group list-group-flush">
+          {toDos.filter(toDo => (toDo.done === true)).map((toDo) => {
+            return (
+              <Done
+                key={toDo._id}
+                toDoId={toDo._id}
+                text={toDo.text}
+                done={toDo.done}
+              />
+             );
+            })}
+            </ul>
+          </div>
+        </div>
+      </div>
       </Container>
-      <Footer></Footer>
     </Jumbotron>
   );
 };
